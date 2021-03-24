@@ -9,6 +9,10 @@ public class Book {
 		this(null, null);
 	}
 	
+	public Book(BookDTO bookDto) {
+		this(bookDto.getTitle(), bookDto.getAuthor());
+	}
+	
 	public Book(String title, String author) {
 		setTitle(title);
 		setAuthor(author);

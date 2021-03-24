@@ -19,7 +19,7 @@ public class ListStorage implements GenericStorage {
 	private List<Book> storage;
 	
 	public Book create(BookDTO bookDto) {
-		Book book = new Book(bookDto.getTitle(), bookDto.getAuthor());
+		Book book = new Book(bookDto);
 		book.setId(UUID.randomUUID().toString());
 		storage.add(book);
 		return book;
