@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cz.gopas.review.bean.Review;
@@ -22,7 +23,6 @@ import cz.gopas.review.bean.ReviewDTO;
 import cz.gopas.review.persistence.GenericStorage;
 
 @RestController
-@RequestMapping("/review")
 public class ReviewService {
 
 	@Autowired
@@ -36,7 +36,20 @@ public class ReviewService {
 		return hdr;
 	}
 	
-	@GetMapping
+	@GetMapping("/reviewbybook")
+	public ResponseEntity<List<Review>> getReviewsByBook(@RequestParam(required=true) String book, @RequestParam(required=false,defaultValue="1") int minstars) {
+		
+		if(minstars <= 0 || minstars > 10) {
+			HttpHeaders hdrs = new HttpHeaders();
+			hdrs.add("failure-reason", "Number of stars out of range");
+			return new ResponseEntity<>(null, hdrs, HttpStatus.BAD_REQUEST);
+		}
+		
+		List<Review> reviews = storage.readByBookBetterThan(book, minstars);
+		return new ResponseEntity<>(reviews, HttpStatus.OK);
+	}
+	
+	@GetMapping("/reviewall")
 	public ResponseEntity<List<Review>> getAllReviews() {
 		List<Review> data = storage.readAll();
 		if(data.isEmpty())
@@ -45,8 +58,8 @@ public class ReviewService {
 		
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<Review> getReview(@PathVariable String id) {
+	@GetMapping("/review")
+	public ResponseEntity<Review> getReview(@RequestParam(required=true) String id) {
 		Optional<Review> opt = storage.read(id);
 		if(opt.isEmpty()) {
 			return new ResponseEntity<>(null, prepareHeaders(id), HttpStatus.NOT_FOUND);
@@ -54,19 +67,19 @@ public class ReviewService {
 		return new ResponseEntity<>(opt.get(), HttpStatus.OK);
 	}
 	
-	@PostMapping
+	@PostMapping("/review")
 	public ResponseEntity<Review> createNewReview(@RequestBody ReviewDTO reviewDto) {
 		System.err.println("Called");
 		return new ResponseEntity<>(storage.create(reviewDto), HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/{id}")
-	public Review updateReview(@PathVariable String id, @RequestBody ReviewDTO reviewDto) {
+	@PutMapping("/review")
+	public Review updateReview(@RequestParam(required=true) String id, @RequestBody ReviewDTO reviewDto) {
 		return storage.update(id, reviewDto);
 	}
 	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Boolean> deleteReview(@PathVariable String id) {
+	@DeleteMapping("/review")
+	public ResponseEntity<Boolean> deleteReview(@RequestParam(required=true) String id) {
 		if(storage.delete(id))
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		return new ResponseEntity<Boolean>(false, prepareHeaders(id), HttpStatus.NOT_FOUND);

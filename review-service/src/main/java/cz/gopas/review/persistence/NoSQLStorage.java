@@ -2,6 +2,7 @@ package cz.gopas.review.persistence;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,6 +35,15 @@ public class NoSQLStorage implements GenericStorage {
 	@Override
 	public Optional<Review> read(String id) {
 		return repository.findById(id);
+	}
+	
+	public List<Review> readByBook(String bookId) {
+		return repository.findByBook(bookId);
+	}
+	
+	@Override
+	public List<Review> readByBookBetterThan(String bookId, int minStars) {
+		return repository.findByBookBetterThan(bookId, minStars);		      
 	}
 		
 	@Override

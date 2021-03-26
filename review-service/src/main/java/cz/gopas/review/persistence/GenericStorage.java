@@ -9,6 +9,8 @@ import cz.gopas.review.bean.ReviewDTO;
 public interface GenericStorage {
 	public Review create(ReviewDTO reviewDto);
 	public List<Review> readAll();
+	public List<Review> readByBook(String bookId);
+	public List<Review> readByBookBetterThan(String bookId, int minStars);
 	public Optional<Review> read(String id);
 	public boolean delete(String id);
 	public Review update(String id, ReviewDTO castleDto);

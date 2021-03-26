@@ -1,0 +1,12 @@
+spring:
+ application:
+  name: info-service
+  
+server:
+ port: 7003
+ 
+services:
+ book:
+  url: http://localhost:7001/book
+ review:
+  url: http://localhost:7002/reviewbybook
