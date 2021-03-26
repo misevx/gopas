@@ -26,7 +26,7 @@ import cz.gopas.review.persistence.GenericStorage;
 public class ReviewService {
 
 	@Autowired
-	@Qualifier("list")
+	@Qualifier("nosql")
 	private GenericStorage storage;
 	
 	

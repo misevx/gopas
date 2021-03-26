@@ -26,7 +26,7 @@ import cz.gopas.book.persistence.GenericStorage;
 public class BookService {
 
 	@Autowired
-	@Qualifier("list")
+	@Qualifier("sql")
 	private GenericStorage storage;
 	
 	

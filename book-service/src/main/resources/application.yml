@@ -1,6 +1,15 @@
 spring:
  application:
   name: book-service
-  
+ jpa:
+  hibernate:
+   ddl-auto: none
+ datasource:
+  initialization-mode: always
+  platform: postgres
+  url: jdbc:postgresql://localhost:5432/bookstore
+  username: postgres
+  password: Rootroot1
+   
 server:
  port: 7001

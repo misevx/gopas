@@ -1,6 +1,11 @@
 package cz.gopas.review.bean;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class Review {
+	@Id
 	private String id;
 	private String bookId;
 	private String author;
