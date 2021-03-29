@@ -3,18 +3,26 @@ spring:
   name: gateway-service
   
  cloud:
+  cloud:
+  consul:
+   enabled: true
+   host: consul
+   discovery:
+    prefer-ip-address: true
+    include-hostname-in-instance-id: true
+    
   gateway:
    routes:
    - id: to_book_service
-     uri: http://localhost:7001
+     uri: lb://book-service
      predicates:
      - Path=/book/**
    - id: to_review_service
-     uri: http://localhost:7002
+     uri: lb://review-service
      predicates:
      - Path=/review/**,/reviewbybook/**
    - id: to_info_service
-     uri: http://localhost:7003
+     uri: lb://info-service
      predicates:
      - Path=/info/**
     

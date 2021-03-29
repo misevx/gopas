@@ -3,9 +3,17 @@ spring:
   name: review-service
  data:
   mongodb:
-   host: localhost
+   host: mongodb
    port: 27017
-   database: review  
+   database: review 
+ 
+ cloud:
+  consul:
+   enabled: true
+   host: consul
+   discovery:
+    prefer-ip-address: true
+    include-hostname-in-instance-id: true 
   
 server:
  port: 7002

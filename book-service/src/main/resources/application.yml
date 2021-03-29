@@ -7,9 +7,17 @@ spring:
  datasource:
   initialization-mode: always
   platform: postgres
-  url: jdbc:postgresql://localhost:5432/bookstore
+  url: jdbc:postgresql://dbserver:5432/bookstore
   username: postgres
-  password: Rootroot1
+  password: linux
+  
+ cloud:
+  consul:
+   enabled: true
+   host: consul
+   discovery:
+    prefer-ip-address: true
+    include-hostname-in-instance-id: true
    
 server:
  port: 7001

@@ -1,12 +1,20 @@
 spring:
  application:
   name: info-service
+ 
+ cloud:
+  consul:
+   enabled: true
+   host: consul
+   discovery:
+    prefer-ip-address: true
+    include-hostname-in-instance-id: true 
   
 server:
  port: 7003
  
 services:
  book:
-  url: http://localhost:7001/book
+  url: http://book-service/book
  review:
-  url: http://localhost:7002/reviewbybook
+  url: http://review-service/reviewbybook
