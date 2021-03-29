@@ -1,4 +1,4 @@
-# gopas
-Sample projects for Gopas courses
+# Gopas JSpringBoot1
+Sample projects for Gopas course
 
 This is the very first version of the project
